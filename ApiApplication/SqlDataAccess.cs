@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using ApiApplication.Model;
+using Dapper;
 using Microsoft.Data.SqlClient;
 
 namespace ApiApplication;
@@ -34,5 +35,16 @@ public class SqlDataAccess
         //    storedProcedure, parameters, commandType: System.Data.CommandType.StoredProcedure);
 
         return "Success";
+    }
+
+    public async Task<UserLoginModel> GetUserByUserNameAsync<U>(U parameters, string connectionStringName = "default")
+    {
+        using var connection = new SqlConnection(_configuration.GetConnectionString(connectionStringName));
+
+        string sql = "SELECT Username, PasswordHash as Password FROM UserLogin WHERE Username = @Username";
+
+        var row = await connection.QueryFirstOrDefaultAsync<UserLoginModel>(sql, parameters);
+
+        return row;
     }
 }

@@ -61,6 +61,7 @@
     <Build Include="Person.sql" />
     <Build Include="spPerson_GetAll.sql" />
     <Build Include="spPerson_Insert.sql" />
+    <Build Include="UserLogin.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="local.publish.xml" />
